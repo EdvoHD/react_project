@@ -1,72 +1,62 @@
 import React, { Component } from "react";
-
 import axios from "axios";
-
-
+import FileUpload from "./FileUpload";
 
 class Adminform extends Component{
 
     state={
-         image:" "
+        image:" "
     }
-eventChange(e){
-    console.log(e.target.files[0])
-    this.setState({image:e.target.files[0]})
-}
 
+    handleChange(e){
+        console.log("onChange file", e.target.files);
+        
+        this.setState({image:e.target.files[0]})
+    }
 
-async onSubmitToApi(e){
-    e.preventDefault();
+    handleSubmit =async(e) =>{
+        e.preventDefault();
+        console.log("HandleSubmit this.state.file", this.state.file)
+        
+        const res = await axios.post("http://localhost:1337/products", {
 
+            title: e.target.elements.title.value,
+            description: e.target.elements.description.value,
+            price: e.target.elements.price.value,
+            
+        })
 
-    //console.log(e.target.elements.file.files[0])
-     //this.setState({title: e.target.elements.title.value})
-     
+        console.log(res)
 
-  const res = await axios.post("http://localhost:1337/products", {
+        const data = new FormData();
+        data.append('file', this.state.image) 
+        data.append('ref', 'produkt') 
+        data.append('refId', res.data.id)  
+        data.append('field', 'image')
 
-       title: e.target.elements.title.value,
-       description: e.target.elements.description.value,
-       price: e.target.elements.price.value
-  
-   })
-   console.log(res)
+        const resPic = await axios.post("http://localhost:1337/upload", data)
+        console.log(resPic)
+        
 
-    const data=  new FormData();
-  
-    data.append('files', this.state.image) //file från state
-    data.append('ref', 'product') //collection
-    data.append('refId', res.data.id)  // referens id
-    data.append('field', 'image')// fältnamn
-    
-          
-    /*  data.append('ref', 'product')
-     data.append('refId', resPic.data.id)
-     data.append('field',"image" )     
- */
-//console.log(data)
-     const  resPic = await axios.post("http://localhost:1337/upload",data) 
-      console.log(resPic)}
+    }
 
     render(){
         return(
             <div>
-                Du måste vara admin för att skapa produkter. (villkor)
-                 <form onSubmit={this.onSubmitToApi.bind(this)}>
-                     <input type="text" name="title"/>
-                     <input type="text" name="description"/>
-                     <input type="number" name="price"/>
+            <FileUpload />
+                <form onSubmit={this.handleSubmit.bind(this)}>
 
-                     <input type="file"
-                      name="file" onChange={this.eventChange.bind(this)}/>
-                     
-                     <button>Spara</button>
-                     
-                 </form>
-
+                    <input type="text" name="title"/><br/>
+                    <input type="text" name="description"/><br/>
+                    <input type="file" onChange={this.handleChange.bind(this)} name="file"/><br/>
+                    <input type="number" name="price"/><br/>
+                    <button>Spara</button>
+                    
+                </form>
             </div>
         )
     }
+
 }
 
-export default Adminform;
+export default Adminform

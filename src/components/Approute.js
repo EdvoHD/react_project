@@ -23,12 +23,12 @@ const Approute = ()=>{
 
                  <Navbar/>
                  <Switch>
-                 <Route path="/" component={App} exact ></Route>
-                 <Route path="/Bookings" component= {Booking} exact></Route>
-                 <Route path="/form" exact component= {Form}></Route>
-                 <Route path="/admin" exact component= {Adminform}/>
-                 <Route path="/adminsida" exact component={AdminSida}></Route>
-                 <Route component={Notfoundpage}></Route>
+                    <Route path="/" component ={App} exact ></Route>
+                    <Route path="/Bookings" component = {Booking} exact></Route>
+                    <Route path="/form" exact component = {Form}></Route>
+                    <Route path="/admin" exact component = {Adminform}/>
+                    <Route path="/adminsida" exact component = {AdminSida}></Route>
+                    <Route component = {Notfoundpage}></Route>
                  </Switch>
             </BrowserRouter>
             

@@ -1,0 +1,39 @@
+.card-component {
+    position: relative;
+    width: 18rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    box-shadow: 0 2px 4px #0000005e;
+    border-radius: .25rem;
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+
+    button {
+        position: relative;
+        color: #fff;
+        background-color: #555;
+        border: none;
+        padding: .5rem 2rem;
+        border-bottom: 3px solid #555;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        span.price-tag {
+            font-size: 1.2rem;
+            font-weight: 900;
+        }
+    }
+
+
+}

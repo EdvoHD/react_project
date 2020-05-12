@@ -2,8 +2,7 @@
 import React, {Component} from "react";
 import Card from "./Card";
 import axios from "axios";
-
-
+import "../styles/App.scss";
 
 
 //get 
@@ -13,19 +12,19 @@ import axios from "axios";
 class App extends Component{
 
 
-      state={
+      state = {
             products: []
       }
 
 
-// componentDidUpdate(){
-//         console.log("component did update")
-// }
+componentDidUpdate(){
+      console.log("component did update")
+}
 
 //component renderades/mounted
 async componentDidMount (){
 // async await 
-    const res=  await  axios.get("http://localhost:1337/products")
+    const res =  await  axios.get("http://localhost:1337/products")
     
             console.log(res.data);
             this.setState ( {products:res.data})
@@ -38,7 +37,7 @@ async componentDidMount (){
 
 render() {
     return(
-          <div>
+          <div className={"wrapper"}>
 
                 {this.state.products.map((product) =>
                      
@@ -47,13 +46,11 @@ render() {
                       title={product.title} 
                       price={product.price}
                       description= {product.description}
+                      image= {product.image}
                      
                        />
                 )}
                
-
-               
-
           </div>
 
     )
